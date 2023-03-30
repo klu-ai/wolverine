@@ -1,2 +1,4 @@
+*.bak
 venv
 .vscode
+__pycache__
