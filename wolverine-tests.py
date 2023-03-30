@@ -1,3 +1,4 @@
+import os
 import ast
 import sys
 import openai
