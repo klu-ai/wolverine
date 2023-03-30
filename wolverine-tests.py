@@ -56,6 +56,7 @@ response = openai.ChatCompletion.create(
 
 # Extract the generated unit tests code from the API response
 unit_tests_code = response.choices[0].message.content.strip()
+print(colored(unit_tests_code, "yellow"))
 
 # Print a status message
 print(colored("Writing the generated unit tests to the output file...", "yellow"))
