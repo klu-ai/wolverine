@@ -28,7 +28,7 @@ with open(input_file_path, 'r') as file:
     response = openai.Completion.create(
         engine="text-davinci-003",
         prompt=prompt,
-        max_tokens=100,
+        max_tokens=300,
         n=1,
         stop=None,
         temperature=0.5,
