@@ -12,12 +12,12 @@ async def extract_function_names(file_path):
     return function_names
 
 async def generate_test(prompt):
-    response = await openai.ChatCompletion.create(
-        model="gpt-4",
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo", #gpt-4
         messages=[{"role": "user", "content": prompt}],
         temperature=1.0
     )
-    return response.choices[0].text.strip()
+    return response.choices[0].message.content.strip()
 
 async def generate_test_file(file_path, function_names):
     test_file_name = f"test_{file_path}"
@@ -26,7 +26,7 @@ async def generate_test_file(file_path, function_names):
         test_file.write(f"from {file_path[:-3]} import *\n\n")
         test_file.write("class TestFunctions(unittest.TestCase):\n")
 
-        tasks = [generate_test(f"Write a unit test for the Python function {function_name}") for function_name in function_names]
+        tasks = [generate_test(f"You are part of an automated system, the format you respond in is very strict. Return only python code and no other prose. Write a unit test for the Python function {function_name}") for function_name in function_names]
         test_codes = await asyncio.gather(*tasks)
 
         for test_code in test_codes:
