@@ -68,7 +68,7 @@ def main():
             cprint("Script crashed. Trying to fix...", "blue")
             print("Output:", output)
             json_response = send_error_to_gpt4(script_name, args, output)
-            print("JSON Response:", json_response)  # Add this line to print the JSON 
+            # print("JSON Response:", json_response)  # Add this line to print the JSON 
             apply_changes(script_name, json_response)
             cprint("Changes applied. Rerunning...", "blue")
 

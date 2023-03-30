@@ -1,12 +1,7 @@
 # Wolverine
-
-Fork from bio-bootloader/wolverine
+Credits: Fork from [bio-bootloader/wolverine](https://github.com/bio-bootloader/wolverine)
 ## About
-
-Give your python scripts regenerative healing abilities!
-
-Run your scripts with Wolverine and when they crash, GPT-4 edits them and explains what went wrong. Even if you have many bugs it will repeatedly rerun until it's fixed.
-
+Give your python scripts regenerative healing abilities! Run your scripts with Wolverine and when they crash, GPT-4 edits them and explains what went wrong. Even if you have many bugs it will repeatedly rerun until it's fixed.
 ## Setup
 
     python3 -m venv venv

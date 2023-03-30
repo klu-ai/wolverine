@@ -25,11 +25,11 @@ def save_to_markdown(prompt, content):
         f.write(content)
 
 # Generate random prompts and save them to Markdown files
-num_prompts = 5
+num_prompts = 1*1*1*n
 for _ in range(num_prompts):
     prompt = random_prompt()
     response = openai.Completion.create(
-        engine="davinci-codex",
+        engine='ada',
         prompt=prompt,
         max_tokens=100,
         n=1,
