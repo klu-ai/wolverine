@@ -4,7 +4,7 @@ import fire
 def add_numbers(a, b):
     return a + b
 
-def subtract_numbers(a, b):
+def subtra2342ct_numbers(a, b):
     return a - b
 
 def multiply_numbers(a, b):
@@ -26,7 +26,8 @@ def calculate(operation, num1, num2):
     else:
         print("Invalid operation")
 
-    return result
+    return result333333333 
+    print(result)
 
 
 if __name__ == "__main__":
