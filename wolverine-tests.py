@@ -1,50 +1,68 @@
-import os
-import ast
-import sys
 import openai
-import asyncio
+import sys
+import os
 
-async def extract_function_names(file_path):
-    with open(file_path, "r") as file:
-        content = file.read()
-    tree = ast.parse(content)
-    function_names = [node.name for node in ast.walk(tree) if isinstance(node, ast.FunctionDef)]
-    return function_names
+# Import additional libraries for colored terminal output
+from termcolor import colored
 
-async def generate_test(prompt):
-    response = openai.ChatCompletion.create(
-        model="gpt-4",
-        messages=[{"role": "user", "content": prompt}],
-        temperature=1.0
+# Retrieve the input file path from the command line arguments
+input_file_path = sys.argv[1]
+
+# Set the OpenAI API key from the environment variable
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
+# Print a status message
+print(colored("Reading the input file...", "yellow"))
+
+# Open the input file and read its content
+with open(input_file_path, 'r') as file:
+    input_file_content = file.read()
+
+    # Create a prompt to summarize the Python code
+    prompt = f"Summarize the following Python code:\n\n```python\n{input_file_content}\n```"
+
+    # Print a status message
+    print(colored("Requesting a summary from the OpenAI API...", "yellow"))
+
+    # Request a summary from the OpenAI API
+    response = openai.Completion.create(
+        engine="text-davinci-003",
+        prompt=prompt,
+        max_tokens=100,
+        n=1,
+        stop=None,
+        temperature=0.5,
     )
-    return response.choices[0].message.content.strip()
 
-async def generate_test_file(file_path, function_names):
-    test_file_name = f"test_{file_path}"
-    with open(test_file_name, "w") as test_file:
-        test_file.write("import unittest\n")
-        test_file.write(f"from {file_path[:-3]} import *\n\n")
-        test_file.write("class TestFunctions(unittest.TestCase):\n")
+    # Extract the summary from the API response
+    summary = response.choices[0].text.strip()
+    print(colored(summary, "yellow"))
 
-        tasks = [generate_test(f"Write a unit test for the Python function {function_name}") for function_name in function_names]
-        test_codes = await asyncio.gather(*tasks)
+# Print a status message
+print(colored("Generating Python unit tests...", "yellow"))
 
-        for test_code in test_codes:
-            test_file.write(f"\n    {test_code}\n")
+# Create an output file path for the generated unit tests
+output_file_path = os.path.splitext(input_file_path)[0] + "_test.py"
 
-        test_file.write("if __name__ == '__main__':\n")
-        test_file.write("    unittest.main()\n")
+# Create a chat completion request for generating Python unit tests
+response = openai.ChatCompletion.create(
+    model="gpt-4",
+    messages=[
+        {"role": "system", "content": "You are an expert python programming assistant. Return only highly optimized python code."},
+        {"role": "user", "content": f"Generate Python unit tests for the following Python file:\n{input_file_content}\n\nWhich contains {summary}\n\nEnsure that the generated tests cover a variety of edge cases and common scenarios.\n\nself.script_name = {output_file_path}"}
+    ],
+    temperature=0.1,
+)
 
-async def main():
-    if len(sys.argv) != 2:
-        print("Usage: python generate_tests.py <python_file>")
-        sys.exit(1)
+# Extract the generated unit tests code from the API response
+unit_tests_code = response.choices[0].message.content.strip()
 
-    openai.api_key = os.getenv("OPENAI_API_KEY")
+# Print a status message
+print(colored("Writing the generated unit tests to the output file...", "yellow"))
 
-    python_file = sys.argv[1]
-    function_names = await extract_function_names(python_file)
-    await generate_test_file(python_file, function_names)
+# Write the generated unit tests code to the output file
+with open(output_file_path, 'w') as output_file:
+    output_file.write(unit_tests_code)
 
-if __name__ == "__main__":
-    asyncio.run(main())
+# Print the location of the generated unit tests file
+print(colored(f"Generated unit tests saved to: {output_file_path}", "green"))

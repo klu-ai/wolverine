@@ -21,7 +21,7 @@ def send_error_to_gpt4(file_path, args, error_message):
     file_with_lines = [f"{i + 1}: {line}" for i, line in enumerate(file_lines)]
     with open("prompt.txt") as f: initial_prompt_text = f.read()
     prompt = f"{initial_prompt_text}\n\nHere is the script that needs fixing:\n\n{''.join(file_with_lines)}\n\nHere are the arguments it was provided:\n\n{args}\n\nHere is the error message:\n\n{error_message}\nPlease provide your suggested changes, and remember to stick to the exact format as described above."
-    response = openai.ChatCompletion.create(model="gpt-4", messages=[{"role": "user", "content": prompt}], temperature=1.0)
+    response = openai.ChatCompletion.create(model="gpt-4", messages=[{"role": "user", "content": prompt}], temperature=0.3)
     return response.choices[0].message.content.strip()
 
 def apply_changes(file_path, changes_json):
