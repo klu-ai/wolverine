@@ -5,7 +5,7 @@ import openai
 import random
 import string
 from dotenv import load_dotenv
-import bugs2 as script
+import tests.bugs2 as script
 
 class TestRandomPrompt(unittest.TestCase):
     def test_random_prompt_length(self):
