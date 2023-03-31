@@ -46,14 +46,15 @@ def generate_script(user_input):
     )
 
     generated_script = response.choices[0].message.content.strip()
-    return extract_code(generated_script) #[3:-3]
+    return extract_code(generated_script)
+    # return extract_code(generated_script) #[3:-3]
 
 
-def extract_code(response):
+def extract_code(text):
     code = []
     in_code_block = False
 
-    for line in response.split('\n'):
+    for line in text.split('\n'):
         if line.strip() == '```python':
             in_code_block = True
             continue
@@ -63,7 +64,7 @@ def extract_code(response):
         if in_code_block:
             code.append(line)
 
-    return in_code_block
+    return '\n'.join(code)
 
 def generate_filename(user_input):
     prompt = f"Summarize the following Python code into a short filename without the extension (action_object) :\n\n```python\n{user_input}\n```"
