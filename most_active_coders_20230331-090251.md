@@ -1,0 +1,23 @@
+# Most active coders
+
+- eltociear: 2401 - https://github.com/eltociear
+- dluc: 429 - https://github.com/dluc
+- danmarshall: 406 - https://github.com/danmarshall
+- sanjeev3: 393 - https://github.com/sanjeev3
+- lemillermicrosoft: 204 - https://github.com/lemillermicrosoft
+- craigomatic: 201 - https://github.com/craigomatic
+- RogerBarreto: 141 - https://github.com/RogerBarreto
+- tawalke: 123 - https://github.com/tawalke
+- shawncal: 98 - https://github.com/shawncal
+- alexchaomander: 83 - https://github.com/alexchaomander
+- glahaye: 65 - https://github.com/glahaye
+- awharrison-28: 53 - https://github.com/awharrison-28
+- TaoChenOSU: 44 - https://github.com/TaoChenOSU
+- dmytrostruk: 33 - https://github.com/dmytrostruk
+- SergeyMenshykh: 21 - https://github.com/SergeyMenshykh
+- markwallace-microsoft: 17 - https://github.com/markwallace-microsoft
+- sw47: 10 - https://github.com/sw47
+- gitri-ms: 9 - https://github.com/gitri-ms
+- jofri-msft: 9 - https://github.com/jofri-msft
+- eduardogoncalves: 4 - https://github.com/eduardogoncalves
+- dependabot[bot]: 0 - https://github.com/apps/dependabot

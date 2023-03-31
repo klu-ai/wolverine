@@ -19,9 +19,11 @@ async def fetch_json(session, url):
 async def get_contribution_count(session, profile_url):
     html = await fetch_url(session, profile_url)
     soup = BeautifulSoup(html, 'html.parser')
-    contribution_text = soup.find('h2', class_='f4 text-normal mb-2').text.strip()
-    contribution_count = int(contribution_text.split()[0].replace(',', ''))
-    return contribution_count
+    contribution_element = soup.find('h2', class_='f4 text-normal mb-2')
+    if contribution_element is None:
+        return 0
+    contribution_text = contribution_element.text.strip()
+    return int(''.join(filter(str.isdigit, contribution_text)))
 
 async def fetch_contributors(session, repo_url):
     repo_data = await fetch_json(session, repo_url)
@@ -56,7 +58,8 @@ def save_output_to_md_file(most_active_coders):
 
 async def main():
     # repo_url = "https://api.github.com/repos/{owner}/{repo}"
-    repo_url = "https://api.github.com/repos/hwchase17/langchain"
+    # repo_url = "https://api.github.com/repos/hwchase17/langchain"
+    repo_url = 'https://api.github.com/repos/microsoft/semantic-kernel'
     most_active_coders = await get_most_active_coders(repo_url)
     await print_most_active_coders(most_active_coders)
     save_output_to_md_file(most_active_coders)
