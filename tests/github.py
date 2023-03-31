@@ -55,7 +55,8 @@ def save_output_to_md_file(most_active_coders):
             file.write(f"- {coder}: {score} - {url}\n")
 
 async def main():
-    repo_url = "https://api.github.com/repos/{owner}/{repo}"
+    # repo_url = "https://api.github.com/repos/{owner}/{repo}"
+    repo_url = "https://api.github.com/repos/hwchase17/langchain"
     most_active_coders = await get_most_active_coders(repo_url)
     await print_most_active_coders(most_active_coders)
     save_output_to_md_file(most_active_coders)

@@ -49,7 +49,7 @@ response = openai.ChatCompletion.create(
     model="gpt-4",
     messages=[
         {"role": "system", "content": "You are an expert python programming assistant. Return only highly optimized python code."},
-        {"role": "user", "content": f"Generate Python unit tests for the following Python file:\n{input_file_content}\n\nWhich contains {summary}\n\nEnsure that the generated tests cover a variety of edge cases and common scenarios.\n\nself.script_name = {output_file_path}"}
+        {"role": "user", "content": f"Generate Python unit tests for the following Python file:\n{input_file_content}\n\nWhich contains {summary}\n\nEnsure that the generated tests are simple and extensible in the future.\n\nself.script_name = {output_file_path}"}
     ],
     temperature=0.1,
 )
